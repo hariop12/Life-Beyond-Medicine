@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Manager - Admin Panel</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-page">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-leaf"></i> Life Beyond Medicine</h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="bookings.html" class="nav-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>Bookings</span>
+                <span class="badge" id="bookingsCount">0</span>
+            </a>
+            <a href="content-manager.html" class="nav-item active">
+                <i class="fas fa-edit"></i>
+                <span>Content Manager</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Content Manager</h1>
+            </div>
+            <div class="header-right">
+                <div class="admin-user">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Page Selector -->
+            <div class="content-toolbar">
+                <div class="page-selector">
+                    <label for="pageSelect"><i class="fas fa-file-alt"></i> Select Page to Edit:</label>
+                    <select id="pageSelect" class="filter-select">
+                        <option value="">Choose a page...</option>
+                        <option value="home">Home Page</option>
+                        <option value="about">About Page</option>
+                        <option value="contact">Contact Info</option>
+                        <option value="services">Services Overview</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Content Editor -->
+            <div class="editor-section" id="editorSection" style="display: none;">
+                <div class="editor-card">
+                    <div class="editor-header">
+                        <h2><i class="fas fa-edit"></i> Edit <span id="currentPage">Content</span></h2>
+                        <div class="editor-actions">
+                            <button class="btn-secondary" id="cancelBtn">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                            <button class="btn-primary" id="saveBtn">
+                                <i class="fas fa-save"></i>
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-body" id="editorBody">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions-section" id="instructionsSection">
+                <div class="instruction-card">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Content Management Instructions</h3>
+                    <ul>
+                        <li>Select a page from the dropdown to start editing</li>
+                        <li>Update text content, images, and other elements</li>
+                        <li>Click "Save Changes" to apply your edits</li>
+                        <li>Changes are saved locally and will persist across sessions</li>
+                        <li>Use the preview button to see how changes look</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-text"></i>
+                        <h4>Edit Text</h4>
+                        <p>Update headings, paragraphs, and descriptions</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-image"></i>
+                        <h4>Change Images</h4>
+                        <p>Upload or link new images for pages</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-palette"></i>
+                        <h4>Customize Colors</h4>
+                        <p>Adjust color schemes and themes</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-save"></i>
+                        <h4>Auto-Save</h4>
+                        <p>Changes are automatically saved locally</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/api-config.js"></script>
+    <script src="../js/admin-common.js"></script>
+    <script src="../js/admin-content.js"></script>
+</body>
+</html>

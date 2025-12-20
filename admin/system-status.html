@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Status - Life Beyond Medicine</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <i class="fas fa-leaf"></i>
+          <h2>Life Beyond Medicine</h2>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="bookings.html" class="nav-item">
+            <i class="fas fa-calendar-check"></i>
+            <span>Bookings</span>
+            <span class="badge" id="bookingsCount">0</span>
+          </a>
+          <a href="content-manager.html" class="nav-item">
+            <i class="fas fa-edit"></i>
+            <span>Content Manager</span>
+          </a>
+          <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+          <a href="system-status.html" class="nav-item active">
+            <i class="fas fa-heartbeat"></i>
+            <span>System Status</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="btn-logout" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+        <header class="admin-header">
+          <div class="header-left">
+            <button class="mobile-toggle" id="mobileToggle">
+              <i class="fas fa-bars"></i>
+            </button>
+            <h1>System Status</h1>
+          </div>
+          <div class="header-right">
+            <div class="admin-profile">
+              <i class="fas fa-user-circle"></i>
+              <span id="adminName">Admin</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="admin-content">
+          <!-- Status Overview -->
+          <div class="status-grid">
+            <div class="status-card" id="backendStatus">
+              <div class="status-icon">
+                <i class="fas fa-server"></i>
+              </div>
+              <div class="status-info">
+                <h3>Backend Server</h3>
+                <p class="status-text">Checking...</p>
+                <p class="status-detail"></p>
+              </div>
+              <div class="status-indicator"></div>
+            </div>
+
+            <div class="status-card" id="mongoStatus">
+              <div class="status-icon">
+                <i class="fas fa-database"></i>
+              </div>
+              <div class="status-info">
+                <h3>MongoDB Connection</h3>
+                <p class="status-text">Checking...</p>
+                <p class="status-detail"></p>
+              </div>
+              <div class="status-indicator"></div>
+            </div>
+
+            <div class="status-card" id="apiStatus">
+              <div class="status-icon">
+                <i class="fas fa-plug"></i>
+              </div>
+              <div class="status-info">
+                <h3>API Endpoints</h3>
+                <p class="status-text">Checking...</p>
+                <p class="status-detail"></p>
+              </div>
+              <div class="status-indicator"></div>
+            </div>
+
+            <div class="status-card" id="dataStatus">
+              <div class="status-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="status-info">
+                <h3>Data Status</h3>
+                <p class="status-text">Checking...</p>
+                <p class="status-detail"></p>
+              </div>
+              <div class="status-indicator"></div>
+            </div>
+          </div>
+
+          <!-- Diagnostic Information -->
+          <div class="card" style="margin-top: 30px">
+            <h2 style="margin-bottom: 20px">
+              <i class="fas fa-stethoscope"></i> System Diagnostics
+            </h2>
+            <div id="diagnosticInfo"></div>
+          </div>
+
+          <!-- Troubleshooting Guide -->
+          <div class="card" style="margin-top: 30px">
+            <h2 style="margin-bottom: 20px">
+              <i class="fas fa-wrench"></i> Troubleshooting Guide
+            </h2>
+
+            <div class="troubleshooting-section">
+              <h3>
+                <i class="fas fa-times-circle" style="color: #ef4444"></i>
+                Backend Server Not Running
+              </h3>
+              <p>
+                <strong>Symptoms:</strong> All status checks fail, "Cannot
+                connect to server" errors
+              </p>
+              <p><strong>Solution:</strong></p>
+              <ol>
+                <li>Open terminal in project directory</li>
+                <li>Run: <code>npm run dev</code></li>
+                <li>Wait for "Server running on port 5000" message</li>
+                <li>Refresh this page</li>
+              </ol>
+            </div>
+
+            <div class="troubleshooting-section">
+              <h3>
+                <i class="fas fa-times-circle" style="color: #ef4444"></i>
+                MongoDB Not Connected
+              </h3>
+              <p>
+                <strong>Symptoms:</strong> Backend runs but database operations
+                fail
+              </p>
+              <p><strong>Solution:</strong></p>
+              <ol>
+                <li>
+                  Check if MongoDB is installed: <code>mongosh --version</code>
+                </li>
+                <li>
+                  Start MongoDB service:
+                  <ul>
+                    <li>
+                      <strong>Windows:</strong> Check services.msc for "MongoDB
+                      Server"
+                    </li>
+                    <li>
+                      <strong>Mac:</strong>
+                      <code>brew services start mongodb-community</code>
+                    </li>
+                    <li>
+                      <strong>Linux:</strong>
+                      <code>sudo systemctl start mongod</code>
+                    </li>
+                  </ul>
+                </li>
+                <li>Test connection: <code>npm run test-connection</code></li>
+                <li>Check .env file has correct MONGODB_URI</li>
+              </ol>
+            </div>
+
+            <div class="troubleshooting-section">
+              <h3>
+                <i class="fas fa-times-circle" style="color: #ef4444"></i> No
+                Bookings Appearing
+              </h3>
+              <p>
+                <strong>Symptoms:</strong> Dashboard shows 0 bookings despite
+                submissions
+              </p>
+              <p><strong>Solution:</strong></p>
+              <ol>
+                <li>Verify backend and MongoDB are running (see above)</li>
+                <li>Check browser console (F12) for errors</li>
+                <li>Try submitting a test booking through contact.html</li>
+                <li>Check server terminal for error messages</li>
+                <li>
+                  Verify MongoDB has data: <code>mongosh</code> then
+                  <code>use life-beyond-medicine</code> then
+                  <code>db.bookings.find()</code>
+                </li>
+              </ol>
+            </div>
+
+            <div class="troubleshooting-section">
+              <h3>
+                <i class="fas fa-question-circle" style="color: #3b82f6"></i>
+                Still Having Issues?
+              </h3>
+              <p><strong>Advanced Debugging:</strong></p>
+              <ol>
+                <li>
+                  Check all dependencies are installed: <code>npm install</code>
+                </li>
+                <li>
+                  Verify Node.js version: <code>node --version</code> (should be
+                  v14 or higher)
+                </li>
+                <li>Check if port 5000 is in use by another application</li>
+                <li>Try restarting both MongoDB and the backend server</li>
+                <li>
+                  Check firewall isn't blocking port 27017 (MongoDB) or 5000
+                  (backend)
+                </li>
+                <li>
+                  Review server logs in terminal for detailed error messages
+                </li>
+              </ol>
+            </div>
+
+            <div
+              style="
+                margin-top: 30px;
+                padding: 20px;
+                background: #f0f9ff;
+                border-left: 4px solid #3b82f6;
+                border-radius: 8px;
+              "
+            >
+              <h4 style="margin: 0 0 10px 0; color: #1e40af">
+                <i class="fas fa-info-circle"></i> Quick Start Commands
+              </h4>
+              <div
+                style="
+                  display: grid;
+                  gap: 10px;
+                  font-family: monospace;
+                  font-size: 14px;
+                "
+              >
+                <div><strong>Install:</strong> <code>npm install</code></div>
+                <div>
+                  <strong>Test MongoDB:</strong>
+                  <code>npm run test-connection</code>
+                </div>
+                <div>
+                  <strong>Create Admin:</strong> <code>npm run seed-admin</code>
+                </div>
+                <div>
+                  <strong>Start Server:</strong> <code>npm run dev</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div
+            style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap"
+          >
+            <button class="btn-primary" onclick="runDiagnostics()">
+              <i class="fas fa-sync-alt"></i> Re-run Diagnostics
+            </button>
+            <button
+              class="btn-secondary"
+              onclick="window.open('../SETUP.md', '_blank')"
+            >
+              <i class="fas fa-book"></i> View Setup Guide
+            </button>
+            <button
+              class="btn-secondary"
+              onclick="window.open('../QUICK-START.md', '_blank')"
+            >
+              <i class="fas fa-rocket"></i> Quick Start Guide
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../js/api-config.js"></script>
+    <script src="../js/admin-common.js"></script>
+    <script src="../js/system-status.js"></script>
+  </body>
+</html>

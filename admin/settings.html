@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Admin Panel</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-page">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-leaf"></i> Life Beyond Medicine</h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="bookings.html" class="nav-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>Bookings</span>
+                <span class="badge" id="bookingsCount">0</span>
+            </a>
+            <a href="content-manager.html" class="nav-item">
+                <i class="fas fa-edit"></i>
+                <span>Content Manager</span>
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Settings</h1>
+            </div>
+            <div class="header-right">
+                <div class="admin-user">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Admin Account Settings -->
+            <div class="settings-section">
+                <h2><i class="fas fa-user-cog"></i> Admin Account</h2>
+                <div class="settings-card">
+                    <form id="accountForm" class="settings-form">
+                        <div class="form-group">
+                            <label for="adminUsername">Username</label>
+                            <input type="text" id="adminUsername" value="admin" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="adminEmail">Email</label>
+                            <input type="email" id="adminEmail" placeholder="admin@example.com">
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div class="settings-section">
+                <h2><i class="fas fa-lock"></i> Change Password</h2>
+                <div class="settings-card">
+                    <form id="passwordForm" class="settings-form">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" required>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-key"></i>
+                            Update Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="settings-section">
+                <h2><i class="fas fa-database"></i> Data Management</h2>
+                <div class="settings-card">
+                    <div class="data-actions">
+                        <div class="action-item">
+                            <div class="action-info">
+                                <h3><i class="fas fa-download"></i> Export All Bookings</h3>
+                                <p>Download all booking data as CSV file</p>
+                            </div>
+                            <button class="btn-secondary" id="exportAllBtn">
+                                <i class="fas fa-file-export"></i>
+                                Export
+                            </button>
+                        </div>
+                        
+                        <div class="action-item">
+                            <div class="action-info">
+                                <h3><i class="fas fa-trash-restore"></i> Clear Old Data</h3>
+                                <p>Remove bookings older than 6 months</p>
+                            </div>
+                            <button class="btn-warning" id="clearOldBtn">
+                                <i class="fas fa-broom"></i>
+                                Clear Old
+                            </button>
+                        </div>
+                        
+                        <div class="action-item">
+                            <div class="action-info">
+                                <h3><i class="fas fa-exclamation-triangle"></i> Reset All Data</h3>
+                                <p>Delete all bookings and content (Cannot be undone)</p>
+                            </div>
+                            <button class="btn-danger" id="resetAllBtn">
+                                <i class="fas fa-trash-alt"></i>
+                                Reset All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="settings-section">
+                <h2><i class="fas fa-info-circle"></i> System Information</h2>
+                <div class="settings-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Version:</span>
+                            <span class="info-value">1.0.0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Bookings:</span>
+                            <span class="info-value" id="totalBookingsInfo">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Storage Used:</span>
+                            <span class="info-value" id="storageInfo">0 KB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Login:</span>
+                            <span class="info-value" id="lastLoginInfo">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Added api-config.js script before other admin scripts for API access -->
+    <script src="../js/api-config.js"></script>
+    <script src="../js/admin-common.js"></script>
+    <script src="../js/admin-settings.js"></script>
+</body>
+</html>

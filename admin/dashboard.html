@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Life Beyond Medicine</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-page">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-leaf"></i> Life Beyond Medicine</h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="bookings.html" class="nav-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>Bookings</span>
+                <span class="badge" id="bookingsCount">0</span>
+            </a>
+            <a href="content-manager.html" class="nav-item">
+                <i class="fas fa-edit"></i>
+                <span>Content Manager</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Dashboard Overview</h1>
+            </div>
+            <div class="header-right">
+                <div class="admin-user">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--accent-orange);">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalBookings">0</h3>
+                        <p>Total Bookings</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--primary-green);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pendingBookings">0</h3>
+                        <p>Pending Bookings</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--accent-teal);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="confirmedBookings">0</h3>
+                        <p>Confirmed</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--earth-brown);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalClients">0</h3>
+                        <p>Total Clients</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar"></i> Recent Bookings</h2>
+                    <a href="bookings.html" class="btn-link">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Service</th>
+                                <th>Time</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentBookingsTable">
+                            <tr class="empty-state">
+                                <td colspan="7">
+                                    <i class="fas fa-calendar-times"></i>
+                                    <p>No bookings yet</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                </div>
+                
+                <div class="quick-actions-grid">
+                    <a href="bookings.html" class="action-card">
+                        <i class="fas fa-calendar-plus"></i>
+                        <h3>Add New Booking</h3>
+                        <p>Create a manual booking entry</p>
+                    </a>
+                    
+                    <a href="content-manager.html" class="action-card">
+                        <i class="fas fa-edit"></i>
+                        <h3>Edit Content</h3>
+                        <p>Update website content and images</p>
+                    </a>
+                    
+                    <a href="bookings.html?filter=pending" class="action-card">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Review Pending</h3>
+                        <p>Check pending consultations</p>
+                    </a>
+                    
+                    <a href="settings.html" class="action-card">
+                        <i class="fas fa-download"></i>
+                        <h3>Export Data</h3>
+                        <p>Download bookings as CSV</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Added api-config.js script before other admin scripts for API access -->
+    <script src="../js/api-config.js"></script>
+    <script src="../js/admin-common.js"></script>
+    <script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

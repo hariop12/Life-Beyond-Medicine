@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Consultation - Life Beyond Medicine</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">Life Beyond Medicine</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Professional Services <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="naturopath.html">Naturopath</a></li>
+                        <li><a href="yoga.html">Yoga Therapist</a></li>
+                        <li><a href="nutritionist.html">Nutritionist</a></li>
+                        <li><a href="sujok.html">Sujok Smile Healer</a></li>
+                        <li><a href="meditation.html">Smile Meditation</a></li>
+                        <li><a href="holistic.html">Holistic Healer</a></li>
+                        <li><a href="counselor.html">CPA Counselor</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Social Services <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="social/sparsh.html">Sparsh Ek Ehsaas</a></li>
+                        <li><a href="social/jito.html">JITO Diagnostic Center</a></li>
+                        <li><a href="social/rajasthani.html">Rajasthani Ekta Women Organization</a></li>
+                        <li><a href="social/sthanakwasi.html">Sthanakwasi Sadri Women Organization</a></li>
+                        <li><a href="social/sskg.html">SSKG</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="faq.html">FAQ's</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Book Your Consultation</h1>
+            <p>Begin your journey to holistic wellness today</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="contact-content">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <h2>Schedule an Appointment</h2>
+                    <p>Fill out the form below and we'll get back to you within 24 hours to confirm your consultation.</p>
+                    
+                    <form id="consultationForm" class="consultation-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Select Service *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Choose a service...</option>
+                                <option value="naturopath">Naturopathy</option>
+                                <option value="yoga">Yoga Therapy</option>
+                                <option value="nutritionist">Holistic Nutrition</option>
+                                <option value="sujok">Sujok Smile Healing</option>
+                                <option value="meditation">Smile Meditation</option>
+                                <option value="holistic">Holistic Healing</option>
+                                <option value="counselor">CPA Counseling</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Preferred Date *</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Preferred Time *</label>
+                                <select id="time" name="time" required>
+                                    <option value="">Select time...</option>
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="15:00">3:00 PM</option>
+                                    <option value="16:00">4:00 PM</option>
+                                    <option value="17:00">5:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="consultationType">Consultation Type *</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="consultationType" value="in-person" checked>
+                                    <span>In-Person</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="consultationType" value="online">
+                                    <span>Online (Video Call)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Tell us about your health concerns *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Please describe your current health challenges and what you hope to achieve through our services..."></textarea>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="firstVisit" id="firstVisit">
+                                <span>This is my first visit</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="terms" id="terms" required>
+                                <span>I agree to the terms and conditions and privacy policy *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">Book Consultation</button>
+                    </form>
+
+                    <div id="successMessage" class="success-message" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Booking Submitted Successfully!</h3>
+                        <p>Thank you for choosing Life Beyond Medicine. We'll contact you within 24 hours to confirm your appointment.</p>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info-section">
+                    <div class="info-card">
+                        <h3>Contact Information</h3>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Visit Us</h4>
+                                <p>123 Wellness Avenue<br>Holistic Health Center<br>City, State 12345</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p>+1 (555) 123-4567<br>Mon-Fri: 9AM - 6PM<br>Sat: 10AM - 4PM</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p>info@lifebeyondmedicine.com<br>support@lifebeyondmedicine.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Why Choose Us?</h3>
+                        <ul class="benefits-list">
+                            <li><i class="fas fa-check"></i> Certified and experienced practitioners</li>
+                            <li><i class="fas fa-check"></i> Personalized treatment plans</li>
+                            <li><i class="fas fa-check"></i> Holistic approach to wellness</li>
+                            <li><i class="fas fa-check"></i> Natural, safe therapies</li>
+                            <li><i class="fas fa-check"></i> Comfortable, healing environment</li>
+                            <li><i class="fas fa-check"></i> Flexible appointment scheduling</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>What to Expect</h3>
+                        <div class="expectation-item">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h4>Initial Consultation</h4>
+                                <p>Comprehensive health assessment and discussion of your concerns</p>
+                            </div>
+                        </div>
+                        <div class="expectation-item">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h4>Personalized Plan</h4>
+                                <p>Custom treatment protocol designed for your unique needs</p>
+                            </div>
+                        </div>
+                        <div class="expectation-item">
+                            <div class="step-number">3</div>
+                            <div>
+                                <h4>Ongoing Support</h4>
+                                <p>Regular follow-ups and adjustments to ensure optimal results</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="contact-faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How long is a typical consultation?</h3>
+                    <p>Initial consultations usually last 60-90 minutes. Follow-up sessions are typically 45-60 minutes.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you accept insurance?</h3>
+                    <p>We provide receipts for insurance reimbursement. Please check with your provider about coverage for holistic therapies.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What should I bring to my first visit?</h3>
+                    <p>Please bring any relevant medical records, a list of current medications, and any questions you may have.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I book for someone else?</h3>
+                    <p>Yes, you can book on behalf of a family member. Please provide their information in the form.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Life Beyond Medicine</h3>
+                    <p>Holistic healing for body, mind, and spirit through ancient wisdom and natural therapies.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ's</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="naturopath.html">Naturopathy</a></li>
+                        <li><a href="yoga.html">Yoga Therapy</a></li>
+                        <li><a href="nutritionist.html">Nutrition</a></li>
+                        <li><a href="holistic.html">Holistic Healing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Life Beyond Medicine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/api-config.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>
