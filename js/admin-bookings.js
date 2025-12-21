@@ -1,9 +1,11 @@
 // Bookings Management Page
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("[v0] Initializing bookings page...");
   loadAllBookings();
   initFilters();
   initModal();
+  initAddBookingModal(); // Initialize the add booking modal
   initExport();
   initClearAll();
   initSelectAll();
@@ -36,6 +38,11 @@ async function loadAllBookings(filters = {}) {
       `/bookings?${queryParams.toString()}`
     );
     console.log("[v0] Loaded bookings:", bookings.length);
+
+    const bookingsCount = document.getElementById("bookingsCount");
+    if (bookingsCount) {
+      bookingsCount.textContent = bookings.length;
+    }
 
     // Update table
     const tableBody = document.getElementById("bookingsTableBody");
@@ -145,18 +152,107 @@ function initFilters() {
   const statusFilter = document.getElementById("statusFilter");
   const serviceFilter = document.getElementById("serviceFilter");
 
+  let searchTimeout;
   const applyFilters = () => {
-    const filters = {
-      search: searchInput.value,
-      status: statusFilter.value,
-      service: serviceFilter.value,
-    };
-    loadAllBookings(filters);
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      const filters = {
+        search: searchInput.value,
+        status: statusFilter.value,
+        service: serviceFilter.value,
+      };
+      console.log("[v0] Applying filters:", filters);
+      loadAllBookings(filters);
+    }, 300);
   };
 
   searchInput.addEventListener("input", applyFilters);
-  statusFilter.addEventListener("change", applyFilters);
-  serviceFilter.addEventListener("change", applyFilters);
+  statusFilter.addEventListener("change", () => {
+    clearTimeout(searchTimeout);
+    applyFilters();
+  });
+  serviceFilter.addEventListener("change", () => {
+    clearTimeout(searchTimeout);
+    applyFilters();
+  });
+}
+
+function initAddBookingModal() {
+  const addButton = document.getElementById("addNewBookingBtn");
+  const modal = document.getElementById("addBookingModal");
+  const closeModal = document.getElementById("closeAddModal");
+  const cancelBtn = document.getElementById("cancelAddBooking");
+  const submitBtn = document.getElementById("submitNewBooking");
+  const form = document.getElementById("addBookingForm");
+
+  // Set minimum date to today
+  const dateInput = document.getElementById("newDate");
+  if (dateInput) {
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.min = today;
+  }
+
+  if (addButton) {
+    addButton.addEventListener("click", () => {
+      form.reset();
+      modal.classList.add("active");
+    });
+  }
+
+  if (closeModal) {
+    closeModal.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener("click", async () => {
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      const bookingData = Object.fromEntries(formData.entries());
+
+      console.log("[v0] Creating new booking:", bookingData);
+
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i> Creating...';
+
+      try {
+        await window.API.request("/bookings", {
+          method: "POST",
+          body: JSON.stringify(bookingData),
+        });
+
+        modal.classList.remove("active");
+        form.reset();
+        loadAllBookings();
+        alert("Booking created successfully!");
+      } catch (error) {
+        console.error("[v0] Error creating booking:", error);
+        alert(`Failed to create booking: ${error.message}`);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+  }
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.remove("active");
+    }
+  });
 }
 
 // Initialize modal

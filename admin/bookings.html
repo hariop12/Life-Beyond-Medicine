@@ -1,166 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Bookings - Admin Panel</title>
-    <link rel="stylesheet" href="../css/admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="admin-page">
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body class="admin-page">
     <!-- Sidebar -->
     <aside class="admin-sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2><i class="fas fa-leaf"></i> Life Beyond Medicine</h2>
-            <button class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        
-        <nav class="sidebar-nav">
-            <a href="dashboard.html" class="nav-item">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="bookings.html" class="nav-item active">
-                <i class="fas fa-calendar-check"></i>
-                <span>Bookings</span>
-                <span class="badge" id="bookingsCount">0</span>
-            </a>
-            <a href="content-manager.html" class="nav-item">
-                <i class="fas fa-edit"></i>
-                <span>Content Manager</span>
-            </a>
-            <a href="settings.html" class="nav-item">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-        </nav>
-        
-        <div class="sidebar-footer">
-            <button class="logout-btn" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </button>
-        </div>
+      <div class="sidebar-header">
+        <h2><i class="fas fa-leaf"></i> Life Beyond Medicine</h2>
+        <button class="sidebar-toggle" id="sidebarToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="bookings.html" class="nav-item active">
+          <i class="fas fa-calendar-check"></i>
+          <span>Bookings</span>
+          <span class="badge" id="bookingsCount">0</span>
+        </a>
+        <a href="content-manager.html" class="nav-item">
+          <i class="fas fa-edit"></i>
+          <span>Content Manager</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </button>
+      </div>
     </aside>
 
     <!-- Main Content -->
     <main class="admin-main">
-        <header class="admin-header">
-            <div class="header-left">
-                <button class="mobile-toggle" id="mobileToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h1>Manage Bookings</h1>
-            </div>
-            <div class="header-right">
-                <div class="admin-user">
-                    <i class="fas fa-user-circle"></i>
-                    <span id="adminName">Admin</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="admin-content">
-            <!-- Filters and Search -->
-            <div class="bookings-toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Search by name, email, or phone...">
-                </div>
-                
-                <div class="filter-group">
-                    <select id="statusFilter" class="filter-select">
-                        <option value="all">All Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="confirmed">Confirmed</option>
-                        <option value="completed">Completed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                    
-                    <select id="serviceFilter" class="filter-select">
-                        <option value="all">All Services</option>
-                        <option value="naturopath">Naturopathy</option>
-                        <option value="yoga">Yoga Therapy</option>
-                        <option value="nutritionist">Nutrition</option>
-                        <option value="sujok">Sujok Healing</option>
-                        <option value="meditation">Meditation</option>
-                        <option value="holistic">Holistic Healing</option>
-                        <option value="counselor">Counseling</option>
-                    </select>
-                    
-                    <button class="btn-secondary" id="exportBtn">
-                        <i class="fas fa-download"></i>
-                        Export CSV
-                    </button>
-                    
-                    <button class="btn-danger" id="clearAllBtn">
-                        <i class="fas fa-trash"></i>
-                        Clear All
-                    </button>
-                </div>
-            </div>
-
-            <!-- Bookings Table -->
-            <div class="bookings-section">
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="selectAll"></th>
-                                <th>ID</th>
-                                <th>Submitted</th>
-                                <th>Name</th>
-                                <th>Contact</th>
-                                <th>Service</th>
-                                <th>Appointment</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bookingsTableBody">
-                            <tr class="empty-state">
-                                <td colspan="10">
-                                    <i class="fas fa-calendar-times"></i>
-                                    <p>No bookings found</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="table-footer">
-                    <div class="showing-info">
-                        Showing <span id="showingCount">0</span> of <span id="totalCount">0</span> bookings
-                    </div>
-                </div>
-            </div>
+      <header class="admin-header">
+        <div class="header-left">
+          <button class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1>Manage Bookings</h1>
         </div>
+        <div class="header-right">
+          <div class="admin-user">
+            <i class="fas fa-user-circle"></i>
+            <span id="adminName">Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- Filters and Search -->
+        <div class="bookings-toolbar">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search by name, email, or phone..."
+            />
+          </div>
+
+          <div class="filter-group">
+            <select id="statusFilter" class="filter-select">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+
+            <select id="serviceFilter" class="filter-select">
+              <option value="all">All Services</option>
+              <option value="naturopath">Naturopathy</option>
+              <option value="yoga">Yoga Therapy</option>
+              <option value="nutritionist">Nutrition</option>
+              <option value="sujok">Sujok Healing</option>
+              <option value="meditation">Meditation</option>
+              <option value="holistic">Holistic Healing</option>
+              <option value="counselor">Counseling</option>
+            </select>
+
+            <button class="btn-secondary" id="exportBtn">
+              <i class="fas fa-download"></i>
+              Export CSV
+            </button>
+
+            <button class="btn-danger" id="clearAllBtn">
+              <i class="fas fa-trash"></i>
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="bookings-section">
+          <!-- Added Add New Booking button above the table -->
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <h2 style="margin: 0">
+              <i class="fas fa-calendar-check"></i> All Bookings
+            </h2>
+            <button class="btn-primary" id="addNewBookingBtn">
+              <i class="fas fa-plus"></i> Add New Booking
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="selectAll" /></th>
+                  <th>ID</th>
+                  <th>Submitted</th>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Service</th>
+                  <th>Appointment</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTableBody">
+                <tr class="empty-state">
+                  <td colspan="10">
+                    <i class="fas fa-calendar-times"></i>
+                    <p>No bookings found</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <div class="showing-info">
+              Showing <span id="showingCount">0</span> of
+              <span id="totalCount">0</span> bookings
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Booking Details Modal -->
     <div id="bookingModal" class="modal">
-        <div class="modal-content modal-large">
-            <div class="modal-header">
-                <h2><i class="fas fa-calendar-alt"></i> Booking Details</h2>
-                <button class="modal-close" id="closeModal">&times;</button>
-            </div>
-            
-            <div class="modal-body" id="modalBody">
-                <!-- Content will be loaded dynamically -->
-            </div>
-            
-            <div class="modal-footer">
-                <button class="btn-secondary" id="closeModalBtn">Close</button>
-            </div>
+      <div class="modal-content modal-large">
+        <div class="modal-header">
+          <h2><i class="fas fa-calendar-alt"></i> Booking Details</h2>
+          <button class="modal-close" id="closeModal">&times;</button>
         </div>
+
+        <div class="modal-body" id="modalBody">
+          <!-- Content will be loaded dynamically -->
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-secondary" id="closeModalBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add New Booking Modal -->
+    <div id="addBookingModal" class="modal">
+      <div class="modal-content modal-large">
+        <div class="modal-header">
+          <h2><i class="fas fa-calendar-plus"></i> Add New Booking</h2>
+          <button class="modal-close" id="closeAddModal">&times;</button>
+        </div>
+
+        <form
+          id="addBookingForm"
+          class="modal-body"
+          style="max-height: 70vh; overflow-y: auto"
+        >
+          <div style="display: grid; gap: 20px">
+            <!-- Personal Information -->
+            <div>
+              <h3 style="margin-bottom: 15px; color: var(--gray-900)">
+                <i class="fas fa-user"></i> Personal Information
+              </h3>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 15px;
+                "
+              >
+                <div>
+                  <label
+                    for="newName"
+                    style="display: block; margin-bottom: 5px; font-weight: 500"
+                    >Full Name *</label
+                  >
+                  <input
+                    type="text"
+                    id="newName"
+                    name="name"
+                    required
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 1px solid var(--gray-300);
+                      border-radius: 8px;
+                    "
+                    placeholder="Enter full name"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="newEmail"
+                    style="display: block; margin-bottom: 5px; font-weight: 500"
+                    >Email *</label
+                  >
+                  <input
+                    type="email"
+                    id="newEmail"
+                    name="email"
+                    required
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 1px solid var(--gray-300);
+                      border-radius: 8px;
+                    "
+                    placeholder="email@example.com"
+                  />
+                </div>
+                <div style="grid-column: 1 / -1">
+                  <label
+                    for="newPhone"
+                    style="display: block; margin-bottom: 5px; font-weight: 500"
+                    >Phone Number *</label
+                  >
+                  <input
+                    type="tel"
+                    id="newPhone"
+                    name="phone"
+                    required
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 1px solid var(--gray-300);
+                      border-radius: 8px;
+                    "
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--gray-200)" />
+
+            <!-- Appointment Details -->
+            <div>
+              <h3 style="margin-bottom: 15px; color: var(--gray-900)">
+                <i class="fas fa-calendar-alt"></i> Appointment Details
+              </h3>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 15px;
+                "
+              >
+                <div style="grid-column: 1 / -1">
+                  <label
+                    for="newService"
+                    style="display: block; margin-bottom: 5px; font-weight: 500"
+                    >Service *</label
+                  >
+                  <select
+                    id="newService"
+                    name="service"
+                    required
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 1px solid var(--gray-300);
+                      border-radius: 8px;
+                    "
+                  >
+                    <option value="">Select a service</option>
+                    <option value="Naturopathy">Naturopathy</option>
+                    <option value="Yoga Therapy">Yoga Therapy</option>
+                    <option value="Nutrition">Nutrition</option>
+                    <option value="Sujok Healing">Sujok Smile Healer</option>
+                    <option value="Meditation">Smile Meditation</option>
+                    <option value="Holistic Healing">Holistic Healer</option>
+                    <option value="Counseling">CPA Counselor</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    for="newDate"
+                    style="display: block; margin-bottom: 5px; font-weight: 500"
+                    >Preferred Date *</label
+                  >
+                  <input
+                    type="date"
+                    id="newDate"
+                    name="preferredDate"
+                    required
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 1px solid var(--gray-300);
+                      border-radius: 8px;
+                    "
+                  />
+                </div>
+                <div>
+                  <label
+                    for="newTime"
+                    style="display: block; margin-bottom: 5px; font-weight: 500"
+                    >Preferred Time *</label
+                  >
+                  <select
+                    id="newTime"
+                    name="preferredTime"
+                    required
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 1px solid var(--gray-300);
+                      border-radius: 8px;
+                    "
+                  >
+                    <option value="">Select time</option>
+                    <option value="9:00 AM">9:00 AM</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="2:00 PM">2:00 PM</option>
+                    <option value="3:00 PM">3:00 PM</option>
+                    <option value="4:00 PM">4:00 PM</option>
+                    <option value="5:00 PM">5:00 PM</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--gray-200)" />
+
+            <!-- Additional Information -->
+            <div>
+              <h3 style="margin-bottom: 15px; color: var(--gray-900)">
+                <i class="fas fa-comment-medical"></i> Additional Information
+              </h3>
+              <label
+                for="newMessage"
+                style="display: block; margin-bottom: 5px; font-weight: 500"
+                >Message (Optional)</label
+              >
+              <textarea
+                id="newMessage"
+                name="message"
+                rows="4"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  border: 1px solid var(--gray-300);
+                  border-radius: 8px;
+                  resize: vertical;
+                "
+                placeholder="Any additional notes or special requirements..."
+              ></textarea>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--gray-200)" />
+
+            <!-- Status -->
+            <div>
+              <h3 style="margin-bottom: 15px; color: var(--gray-900)">
+                <i class="fas fa-info-circle"></i> Booking Status
+              </h3>
+              <label
+                for="newStatus"
+                style="display: block; margin-bottom: 5px; font-weight: 500"
+                >Initial Status</label
+              >
+              <select
+                id="newStatus"
+                name="status"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  border: 1px solid var(--gray-300);
+                  border-radius: 8px;
+                "
+              >
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+          </div>
+        </form>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelAddBooking">
+            Cancel
+          </button>
+          <button type="button" class="btn-primary" id="submitNewBooking">
+            <i class="fas fa-save"></i> Create Booking
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Added api-config.js script before other admin scripts for API access -->
     <script src="../js/api-config.js"></script>
     <script src="../js/admin-common.js"></script>
     <script src="../js/admin-bookings.js"></script>
-</body>
+  </body>
 </html>
+  

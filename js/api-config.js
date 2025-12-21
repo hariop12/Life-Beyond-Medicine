@@ -14,8 +14,9 @@ async function apiRequest(endpoint, options = {}) {
     },
   };
 
-  // Add auth token if available
-  const token = sessionStorage.getItem("admin_token");
+  const token =
+    sessionStorage.getItem("admin_token") ||
+    localStorage.getItem("admin_token");
   if (token) {
     defaultOptions.headers["Authorization"] = `Bearer ${token}`;
   }

@@ -1,55 +1,7 @@
 // Dashboard Page Functionality
 
-// Declare variables before using them
-const getBookings = () => {
-  // Placeholder for getBookings function
-  return [
-    {
-      id: 1,
-      date: "2023-10-01",
-      firstName: "John",
-      lastName: "Doe",
-      service: "Service A",
-      time: "10:00",
-      consultationType: "Online",
-      status: "pending",
-      email: "john@example.com",
-    },
-    {
-      id: 2,
-      date: "2023-10-02",
-      firstName: "Jane",
-      lastName: "Smith",
-      service: "Service B",
-      time: "11:00",
-      consultationType: "In-person",
-      status: "confirmed",
-      email: "jane@example.com",
-    },
-    // Add more bookings as needed
-  ];
-};
-
-const getServiceName = (serviceId) => {
-  // Placeholder for getServiceName function
-  const services = {
-    "Service A": "Service A",
-    "Service B": "Service B",
-    // Add more services as needed
-  };
-  return services[serviceId] || "Unknown Service";
-};
-
-const updateBookingStatus = (id, newStatus) => {
-  // Placeholder for updateBookingStatus function
-  const bookings = getBookings();
-  const bookingIndex = bookings.findIndex((b) => b.id === id);
-  if (bookingIndex !== -1) {
-    bookings[bookingIndex].status = newStatus;
-  }
-};
-
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("[v0] Initializing dashboard...");
   loadDashboardStats();
   loadRecentBookings();
 });
@@ -70,18 +22,25 @@ async function loadDashboardStats() {
     const uniqueEmails = new Set(stats.recentBookings.map((b) => b.email));
     document.getElementById("totalClients").textContent = uniqueEmails.size;
 
+    const bookingsCount = document.getElementById("bookingsCount");
+    if (bookingsCount) {
+      bookingsCount.textContent = stats.pending || 0;
+    }
+
     console.log("[v0] Dashboard stats updated successfully");
   } catch (error) {
     console.error("[v0] Error loading dashboard stats:", error);
-
     showError(
-      "Unable to load dashboard statistics. Please ensure the backend server is running."
+      `Unable to load dashboard statistics. ${error.message || ""}`,
+      error.hint ||
+        'Make sure MongoDB is running and the server is started with "npm run dev"'
     );
   }
 }
 
 async function loadRecentBookings() {
   try {
+    console.log("[v0] Loading recent bookings...");
     const stats = await window.API.request("/bookings/stats/summary");
     const recentBookings = stats.recentBookings;
     const tableBody = document.getElementById("recentBookingsTable");
@@ -92,6 +51,9 @@ async function loadRecentBookings() {
           <td colspan="7">
             <i class="fas fa-calendar-times"></i>
             <p>No bookings yet</p>
+            <p style="font-size: 14px; color: var(--gray-500); margin-top: 8px;">
+              Bookings will appear here once submitted
+            </p>
           </td>
         </tr>
       `;
@@ -113,12 +75,12 @@ async function loadRecentBookings() {
         <td>
           <button class="action-btn btn-view" onclick="viewBooking('${
             booking._id
-          }')">
+          }')" title="View Details">
             <i class="fas fa-eye"></i>
           </button>
           <button class="action-btn btn-update" onclick="updateStatus('${
             booking._id
-          }')">
+          }')" title="Update Status">
             <i class="fas fa-edit"></i>
           </button>
         </td>
@@ -126,8 +88,10 @@ async function loadRecentBookings() {
     `
       )
       .join("");
+
+    console.log("[v0] Recent bookings loaded successfully");
   } catch (error) {
-    console.error("Error loading recent bookings:", error);
+    console.error("[v0] Error loading recent bookings:", error);
   }
 }
 
@@ -155,7 +119,7 @@ async function updateStatus(id) {
       alert("Status updated successfully!");
     }
   } catch (error) {
-    console.error("Error updating status:", error);
+    console.error("[v0] Error updating status:", error);
     alert("Failed to update status");
   }
 }
@@ -169,10 +133,8 @@ function formatDate(dateString) {
   });
 }
 
-function showError(message) {
-  const container =
-    document.querySelector(".dashboard-stats") ||
-    document.querySelector(".dashboard-content");
+function showError(message, hint) {
+  const container = document.querySelector(".admin-content");
   if (!container) return;
 
   const errorDiv = document.createElement("div");
@@ -181,7 +143,7 @@ function showError(message) {
     border: 2px solid #ef4444;
     border-radius: 8px;
     padding: 20px;
-    margin: 20px 0;
+    margin: 0 0 20px 0;
     color: #991b1b;
   `;
   errorDiv.innerHTML = `
@@ -190,9 +152,11 @@ function showError(message) {
       <div>
         <h4 style="margin: 0 0 8px 0; font-weight: 600;">Connection Error</h4>
         <p style="margin: 0;">${message}</p>
-        <p style="margin: 8px 0 0 0; font-size: 14px;">
-          <strong>Fix:</strong> Run <code style="background: #fca5a5; padding: 2px 6px; border-radius: 4px;">npm run dev</code> in your terminal
-        </p>
+        ${
+          hint
+            ? `<p style="margin: 8px 0 0 0; font-size: 14px;"><strong>Fix:</strong> ${hint}</p>`
+            : ""
+        }
       </div>
     </div>
   `;
