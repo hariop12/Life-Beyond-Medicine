@@ -16,42 +16,58 @@ app.use(express.static("."));
 
 // MongoDB Connection
 const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/life-beyond-medicine";
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/life-beyond-medicine";
 
-let isConnected = false;
+// Set up connection event handlers BEFORE connecting
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected successfully");
+});
 
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    isConnected = true;
-    console.log("✅ MongoDB connected successfully");
-    console.log("📍 Database:", mongoose.connection.name);
-  })
-  .catch((err) => {
-    isConnected = false;
-    console.error("❌ MongoDB connection error:", err.message);
-    console.error("Make sure MongoDB is running on:", MONGODB_URI);
-  });
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB connection error:", err.message);
+});
 
 mongoose.connection.on("disconnected", () => {
-  isConnected = false;
-  console.log("⚠️ MongoDB disconnected");
+  console.log("MongoDB disconnected");
 });
 
 mongoose.connection.on("reconnected", () => {
-  isConnected = true;
-  console.log("✅ MongoDB reconnected");
+  console.log("MongoDB reconnected");
 });
 
-app.use((req, res, next) => {
-  if (!isConnected && mongoose.connection.readyState !== 1) {
+// Connect to MongoDB with proper options
+mongoose
+  .connect(MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB:", err.message);
+    console.error("Make sure MongoDB is running on:", MONGODB_URI);
+  });
+
+// Middleware to check database connection for API routes only
+app.use("/api", (req, res, next) => {
+  const dbState = mongoose.connection.readyState;
+  
+  if (dbState !== 1) {
+    const states = {
+      0: "disconnected",
+      1: "connected",
+      2: "connecting",
+      3: "disconnecting",
+    };
+    
     console.error(
       "[Backend] Database not connected. State:",
-      mongoose.connection.readyState
+      dbState,
+      `(${states[dbState]})`
     );
+    
     return res.status(503).json({
       error: "Database connection unavailable",
       message: "Please make sure MongoDB is running",
+      state: states[dbState],
       hint: "Run 'mongod' in a terminal or install MongoDB from https://www.mongodb.com/try/download/community",
     });
   }
